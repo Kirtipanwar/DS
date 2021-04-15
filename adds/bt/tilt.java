@@ -3,12 +3,12 @@
    
     if(node==null)
     {
-        return;
+        return 0;
     }
     int ls = tilt(node.left);
     int rs = tilt(node.right);
     
     tilt += Math.abs(ls-rs);
-    return ls+rm+node.data;
+    return ls+rs+node.data;
     
   }
