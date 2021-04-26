@@ -78,17 +78,7 @@ public class Main {
     display(node.left);
     display(node.right);
   }
-    public static void printKLevelsDown(Node node, int k){
-    if(node == null){
-        return;
-    }
-    if(k == 0){
-        System.out.println(node.data);
-        return;
-    }
-    printKLevelsDown(node.left,k-1);
-    printKLevelsDown(node.right,k-1);
-  }
+  
   public static ArrayList<Node> nodeToRootPath(Node node, int data){
     if(node == null){
         return new ArrayList<>();
@@ -111,28 +101,43 @@ public class Main {
     }
     return new ArrayList<>();
   }
-
-  public static void printKNodesFar(Node node, int data, int k) {
-    // write your code here
-    ArrayList<Node> list = nodeToRootPath(node, data);
-    printKLevelsDown(list.get(0),k);
-    for(int idx=1; idx<list.size(); idx++){
-        int remDist = k - idx;
-        Node curr = list.get(idx);
-        Node prev = list.get(idx-1);
-        if(remDist == 0){
-            System.out.println(curr, data);
-            break;
-        }else{
-            if(curr.left == prev){
-                printKLevelsDown(curr.right, remDist-1);
-            }else if(curr.right == prev){
-                printKLevelsDown(curr.left, remDist-1);
-            }
-        }
+  public static void printKLevelsDown(Node node, int k){
+    
+    if(node==null)
+    {
+        return;
     }
+    if(k==0)
+    {
+        System.out.println(node.data);
+        return;
+    }
+    printKLevelsDown(node.left, k-1);
+    printKLevelsDown(node.right, k-1);
   }
-
+  
+  public static void printKNodesFar(Node node, int data, int k) {
+      ArrayList<Node> list = nodeToRootPath(node,data);
+      printKLevelsDown(list.get(0),k);
+      
+      for(int idx=1; idx<list.size(); idx++){
+          int remDist = k-idx;
+          Node curr = list.get(idx);
+          Node prev = list.get(idx-1);
+          if(remDist==0)
+          {
+              System.out.println(curr.data);
+              return;
+          }else{
+              if(prev==curr.left){
+                  printKLevelsDown(curr.right, remDist-1);
+              }else{
+                  printKLevelsDown(curr.left, remDist-1);
+              }
+          }
+      }
+  }
+  
   public static void main(String[] args) throws Exception {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     int n = Integer.parseInt(br.readLine());
@@ -154,3 +159,7 @@ public class Main {
   }
 
 }
+      
+
+   
+    
