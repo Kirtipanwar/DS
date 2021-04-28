@@ -78,39 +78,48 @@ public class Main {
     display(node.left);
     display(node.right);
   }
-  public static int max(Node node){
-      if(node.right != null){
-          return max(node.right);
-      }else{
-          return node.data;
-      }
+  public static int max(Node node) {
+    if(node.right != null){
+        return max(node.right);
+    }else{
+        return node.data;
+    }
   }
+
   public static Node remove(Node node, int data) {
-      if(data > node.data){
-          node.right =  remove(node.right, data);
-          return node;
-      }else if(data < node.data){
-          node.left = remove(node.left, data);
-          return node;
-      }else{
-          if(node.left != null && node.right != null){
-              int max = max(node.left);
-              node.data = max;
-              node.left = remove(node.left, max);
-              return node;
-          }else if(node.left != null){
-              Node tmp = node.left;
-              node.left = null;
-              return tmp;
-          }else if(node.right != null){
-              Node tmp = node.right;
-              node.right = null;
-              return tmp;
-          }else{
-              return null;
-          }
-      }
     
+    if(node==null){
+        return null;
+    }
+    if(data < node.data){
+        node.left = remove(node.left, data);
+        return node;
+    }else if(data > node.data){
+        node.right = remove(node.right, data);
+        return node;
+    }else{
+        if(node.left==null && node.right==null){
+            //leaf node
+            return null;
+        }else if(node.left == null){
+            //only right child
+            Node tmp = node.right;
+            node.right = null;
+            return tmp;
+            
+        }else if(node.right == null){
+            //only left child
+            Node tmp = node.left;
+            node.left = null;
+            return tmp;
+        }else{
+            //both children
+            int val = max(node.left);
+            node.data = val;
+            node.left = remove(node.left, val);
+            return node;
+        }
+    }
   }
 
   public static void main(String[] args) throws Exception {
@@ -135,3 +144,6 @@ public class Main {
   }
 
 }
+    
+   
+          
