@@ -113,5 +113,4 @@ public class Main {
     Node root = construct(arr);
     pir(root, d1, d2);
   }
-
 }
