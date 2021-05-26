@@ -1,1 +1,33 @@
+import java.io.*;
+import java.util.*;
 
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int coins[] = new int[n];
+        for(int i=0; i<n; i++){
+            coins[i] = scn.nextInt();
+        }
+        int tar = scn.nextInt();
+        System.out.println(coinChangePermutation(coins, tar));
+
+    }
+    public static int coinChangePermutation(int coins[], int tar){
+        int dp[] = new int[tar+1];
+        
+        for(int t=0; t<=tar; t++){
+            if(t==0){
+                dp[t] = 1;
+            }else{
+                for(int coin : coins){
+                    if(t>=coin){
+                        dp[t] += dp[t-coin];
+                    }
+                }
+            }
+        }
+        return dp[tar];
+    }
+}
